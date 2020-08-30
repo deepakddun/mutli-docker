@@ -1,0 +1,50 @@
+version: '3'
+services:
+  mysql:
+    image:  'mysql:latest'
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=db
+      - MYSQL_USER=user
+      - MYSQL_HOST=mysql
+      - MYSQL_PASSWORD=password
+          #- MYSQL_ROOT_PASSWORD='password'
+      - MYSQL_PORT=3306
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - "3306:3306"
+    expose:
+      # Opens port 3306 on the container
+      - "3306"
+  redis:
+    image:  'redis:latest'
+  nginx:
+    restart: always
+    build: ngnix/.
+    ports:
+      - "4000:80"
+  server:
+    build:
+      dockerfile: Dockerfile
+      context:  ./myproj
+    expose:
+      - 8000
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - MYSQL_USER=user
+      - MYSQL_HOST=mysql
+      - MYSQL_DATABASE=db
+      - MYSQL_PASSWORD=password
+      #- MYSQL_ROOT_PASSWORD='password'
+      - MYSQL_PORT=3306
+  subscriber:
+    build:
+      dockerfile: Dockerfile
+      context:  ./subscriber
+    depends_on:
+      - redis
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+
