@@ -1,0 +1,13 @@
+sudo:  required
+services:
+  - docker
+
+before_install:
+  - docker build -t deepakdehradun/multi-client ./myproj
+  - docker build -t deepakdehradun/multi-ngnix ./ngnix
+  - docker build -t deepakdehradun/multi-subscriber ./subscriber
+  # log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push deepakdehradun/multi-client
+  - docker push deepakdehradun/multi-ngnix
+  - docker push deepakdehradun/multi-subscriber
