@@ -15,6 +15,7 @@ before_install:
 
 
 deploy:
+  edge: true
   provider: elasticbeanstalk
   region: us-east-1
   app: multi-container
