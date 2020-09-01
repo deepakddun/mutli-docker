@@ -1,0 +1,31 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "ContainerDefinitions": [
+    {
+      "name": "client",
+      "image": "deepakdehradun/multi-client",
+      "hostname": "client",
+      "essential": false
+    },
+    {
+      "name": "subscriber",
+      "image": "deepakdehradun/multi-subscriber",
+      "hostname": "subscriber",
+      "essential": false
+    },
+    {
+      "name": "nginx",
+      "image": "deepakdehradun/multi-ngnix",
+      "hostname": "nginx",
+      "essential": true,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "links": ["client"]
+    }
+  ]
+
+}

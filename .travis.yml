@@ -12,3 +12,16 @@ before_install:
   - docker push deepakdehradun/multi-client
   - docker push deepakdehradun/multi-ngnix
   - docker push deepakdehradun/multi-subscriber
+
+
+deploy:
+  provider: elasticbeanstalk
+  region: us-east-1
+  app: multi-container
+  env: MultiContainer-env
+  bucket_name: elasticbeanstalk-us-east-1-755257926404
+  bucket_path: multi-container
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
