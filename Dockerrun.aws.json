@@ -5,13 +5,15 @@
       "name": "client",
       "image": "deepakdehradun/multi-client",
       "hostname": "client",
-      "essential": false
+      "essential": false,
+      "memory": 128
     },
     {
       "name": "subscriber",
       "image": "deepakdehradun/multi-subscriber",
       "hostname": "subscriber",
-      "essential": false
+      "essential": false,
+      "memory": 128
     },
     {
       "name": "nginx",
@@ -24,7 +26,8 @@
           "containerPort": 80
         }
       ],
-      "links": ["client"]
+      "links": ["client"],
+      "memory": 128
     }
   ]
 
